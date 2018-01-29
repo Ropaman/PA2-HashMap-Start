@@ -14,6 +14,7 @@ public class PA2Main {
             input = new Scanner(new File(args[0]));
         } catch (Exception ex) {
             ex.printStackTrace();
+            
         }
         String skipfirstline = input.nextLine();
         if (args[1].equals("MAX")) {
