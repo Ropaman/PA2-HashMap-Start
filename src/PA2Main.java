@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
-
 public class PA2Main {
     public static void main(String[] args) {
         Scanner input = null;
@@ -14,7 +13,6 @@ public class PA2Main {
             input = new Scanner(new File(args[0]));
         } catch (Exception ex) {
             ex.printStackTrace();
-            
         }
         String skipfirstline = input.nextLine();
         if (args[1].equals("MAX")) {
@@ -23,6 +21,7 @@ public class PA2Main {
             Integer maxvalue = Integer.parseInt(args[2]);
             HashMap<String,Integer> maxdata = printlimit(input);
             List<String> airports = new ArrayList<String>(maxdata.keySet());
+            Collections.sort(airports);
             for (String airport : airports) {
                 if (maxdata.get(airport) > maxvalue) {
                     System.out.println(airport + " - " + maxdata.get(airport));
@@ -33,7 +32,6 @@ public class PA2Main {
         }
     }
     public static void printmax(Scanner input) {
-
         HashMap<String, Integer> maxdata = new HashMap<String, Integer>();
         ArrayList<String> airports = new ArrayList<String>();
         while (input.hasNextLine()) {
@@ -53,7 +51,6 @@ public class PA2Main {
         System.out
                 .println("MAX FLIGHTS " + maxdata.get(maxkey) + " : " + maxkey);
     }
-
     public static HashMap<String, Integer> printlimit(Scanner input) {
         HashMap<String, Integer> maxdata = new HashMap<String, Integer>();
         List<String> airports = new ArrayList<String>();
@@ -71,29 +68,25 @@ public class PA2Main {
         }
         return maxdata;
     }
-
     public static void printdepart(Scanner input) {
         HashMap<String, ArrayList> departdata = new HashMap<String, ArrayList>();
-
         while (input.hasNextLine()) {
             String[] line = input.nextLine().split(",");
             String destinate = line[4];
             if (departdata.get(line[2]) != null) {
                 departdata.get(line[2]).add(destinate);
-
             } else {
                 ArrayList<String> destination = new ArrayList<String>();
                 destination.add(destinate);
                 departdata.put(line[2], destination);
-                ;
             }
         }
         ArrayList<String> airport = new ArrayList<String>(departdata.keySet());
         Collections.sort(airport);
         for (String airports : airport) {
             System.out
-                    .println(airports + " flys to " + departdata.get(airports));
+                    .println(airports + " flys to "
+                            + String.join(" ", departdata.get(airports)));
         }
     }
 }
-
