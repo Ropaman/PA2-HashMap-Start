@@ -32,7 +32,6 @@ public class PA2Main {
             printdepart(input);
         }
     }
-
     public static void printmax(Scanner input) {
 
         HashMap<String, Integer> maxdata = new HashMap<String, Integer>();
