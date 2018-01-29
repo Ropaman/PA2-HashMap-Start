@@ -56,8 +56,15 @@ public class PA2Main {// main function, determine which 2nd argument line to
         String maxkey = Collections
                 .max(maxdata.entrySet(), Map.Entry.comparingByValue()).getKey();
         // use collect method to determine the largest value in the hashmap
-        System.out
-                .println("MAX FLIGHTS " + maxdata.get(maxkey) + " : " + maxkey);
+        List<String> airportswithsamenumber = new ArrayList<String>();
+        for(String aports:maxdata.keySet()) {
+            if (maxdata.get(aports).equals(maxdata.get(maxkey))) {
+                airportswithsamenumber.add(aports);
+            }
+        }
+        Collections.sort(airportswithsamenumber);
+        System.out.println("MAX FLIGHTS " + maxdata.get(maxkey) + " : "
+                + String.join(" ", airportswithsamenumber));
     }
     public static HashMap<String, Integer> printlimit(Scanner input) {
         HashMap<String, Integer> maxdata = new HashMap<String, Integer>();
@@ -87,7 +94,12 @@ public class PA2Main {// main function, determine which 2nd argument line to
             String[] line = input.nextLine().split(",");
             String destinate = line[4];
             if (departdata.get(line[2]) != null) {
+                if (departdata.get(line[2]).contains(destinate)) {
+                    // check if the next depart airport is already in the
+                    // arraylist
+                } else {
                 departdata.get(line[2]).add(destinate);
+                }
             } else {
                 ArrayList<String> destination = new ArrayList<String>();
                 destination.add(destinate);
@@ -98,6 +110,7 @@ public class PA2Main {// main function, determine which 2nd argument line to
         Collections.sort(airport);
         // sort the airports
         for (String airports : airport) {
+            Collections.sort(departdata.get(airports));
             System.out
                     .println(airports + " flys to "
                             + String.join(" ", departdata.get(airports)));
